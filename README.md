@@ -6,4 +6,5 @@ On github.com/ittca/linux/ the files are structed with this in mind:
 - single files.
 
 Any code available on this github page follows the free software philosophy.
+
 Tiago Calado

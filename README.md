@@ -5,6 +5,6 @@ On github.com/ittca/linux/ the files are structed with this in mind:
 - Folders (are projects with more than one file, probably they are connected and need each other);
 - single files.
 
-Any code available on this github page follows the free software philosophy.
+Any code available on this linux section follows the free software philosophy.
 
 Tiago Calado

@@ -1,5 +1,8 @@
 #!/bin/bash
-# Estes são os meus comandos mais usados para que possa facilitar o meu uso do dia a dia
+# this bash file if with executable permissions is placed in /usr/bin/ will creat a new terminal command "t"
+# t has some options that run my personal most executed commands with just a 2 or 3 caracters
+# this file can be modified, for example to remove, add or edit commands
+# to check options just enter on the terminal "t h"
 
 if [ -n "$1" ]; then
 	for arg
@@ -17,7 +20,7 @@ if [ -n "$1" ]; then
 					./a.out
 					break
 				else
-					echo "insira o programa C para compilar"
+					echo "please enter the file name"
 				fi
 				;;
 			i)
@@ -25,7 +28,7 @@ if [ -n "$1" ]; then
 					sudo apt install $2
 					break
 				else
-					echo "insira o programa a instalar"
+					echo "please enter a program to install"
 				fi
 				;;
 			m)
@@ -39,7 +42,7 @@ if [ -n "$1" ]; then
 					sudo apt remove $2
 					break
 				else
-					echo "insira o programa a remover"
+					echo "please enter a program to remove"
 				fi
 				;;
 			s)
@@ -47,7 +50,7 @@ if [ -n "$1" ]; then
 					apt search $2
 					break
 				else
-					echo "insira o programa a procurar"
+					echo "please enter a program to search"
 				fi
 				;;
 			u)
@@ -58,15 +61,15 @@ if [ -n "$1" ]; then
 				;;
 			*)
 				echo ""
-				echo "opções:"
-				echo "a sudo apt autoremove -y"
-				echo "c	compila os programas .c, é necessário indicar o nome do ficheiro a seguir"
-				echo "i sudo apt install 'nome do programa'"
+				echo "options:"
+				echo "a	sudo apt autoremove -y"
+				echo "c	gcc program_name.c && ./a.out"
+				echo "i	sudo apt install 'program_name'"
 				echo "m	neofetch && free -m"
-				echo "r	sudo apt remove 'nome do programa'"
-				echo "s	apt search 'nome do programa'"
+				echo "r	sudo apt remove 'program_name'"
+				echo "s	apt search 'program_name'"
 				echo "u	sudo apt update && sudo apt upgrade"
-				echo "h	menu ajuda"
+				echo "h	this help menu"
 				echo ""
 				break
 				;;
@@ -74,5 +77,7 @@ if [ -n "$1" ]; then
 	done
 
 else
-	echo "introduza uma opção, ou h para ajuda"
+	echo ""
+	echo "please enter a valid option, h for help"
+	echo ""
 fi

@@ -1,5 +1,5 @@
 # linux
-This files were made for facilitate my linux use,however they are available for public use.
+This files were made for facilitate my linux use and they are available for public use.
 
 On github.com/ittca/linux/ the files are structed with this in mind:
 - Folders (are projects with more than one file, probably they are connected and need each other);

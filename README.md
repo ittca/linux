@@ -1,7 +1,9 @@
 # linux
-This files were made with the intention of facilitate my linux use, each folder is a different project, after enter a folder
-(github.com/ittca/linux/whatever_folder/) the files are connected, this means they probably need each other.
-the singular files ,before enter any folder (github.com/ittca/linux/whatever_file) are just that, singular files with code.
+This files were made for facilitate my linux use,however they are available for public use.
+
+On github.com/ittca/linux/ the files are structed with this in mind:
+- Folders (are projects with more than one file, probably they are connected and need each other);
+- single files.
 
 Any code available on this github page follows the free software philosophy.
 Tiago Calado

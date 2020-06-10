@@ -23,6 +23,30 @@ if [ -n "$1" ]; then
 					echo "please enter the file name"
 				fi
 				;;
+			e)
+				if [ -n "$2" ]; then
+					for arg2
+					do
+						case "$arg2" in
+							*.zip)
+								unzip $2
+								break
+								;;
+							*.rar)
+								unrar $2
+								break
+								;;
+							*)
+								echo "please enter only .zip files"
+								break
+								;;
+						esac
+					done
+					break
+				else
+					echo "please enter a file to extract"
+				fi
+				;;
 			i)
 				if [ -n "$2" ]; then
 					sudo apt install $2
@@ -62,14 +86,19 @@ if [ -n "$1" ]; then
 			*)
 				echo ""
 				echo "options:"
-				echo "a	sudo apt autoremove -y"
-				echo "c	gcc program_name.c && ./a.out"
-				echo "i	sudo apt install 'program_name'"
-				echo "m	neofetch && free -m"
-				echo "r	sudo apt remove 'program_name'"
-				echo "s	apt search 'program_name'"
-				echo "u	sudo apt update && sudo apt upgrade"
-				echo "h	this help menu"
+				echo ""
+				echo "	a   sudo apt autoremove -y"
+				echo "	c   gcc program_name.c && ./a.out"
+				echo "	e   unrar 'file_name' , this can extract .zip .rar"
+				echo "	i   sudo apt install 'program_name'"
+				echo "	m   neofetch && free -m"
+				echo "	r   sudo apt remove 'program_name'"
+				echo "	s   apt search 'program_name'"
+				echo "	u   sudo apt update && sudo apt upgrade"
+				echo "	h   this help menu"
+				echo ""
+				echo "example:"
+				echo "	t i vlc"
 				echo ""
 				break
 				;;
@@ -78,6 +107,6 @@ if [ -n "$1" ]; then
 
 else
 	echo ""
-	echo "please enter a valid option, h for help"
+	echo "please enter valid option, h for help"
 	echo ""
 fi

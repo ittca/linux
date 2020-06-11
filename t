@@ -1,5 +1,5 @@
 #!/bin/bash
-# this bash file if with executable permissions is placed in /usr/bin/ will creat a new terminal command "t"
+# this bash file if with executable permissions is placed on /usr/bin/ will creat a new terminal command "t"
 # t has some options that run my personal most executed commands with just a 2 or 3 caracters
 # this file can be modified, for example to remove, add or edit commands
 # to check options just enter on the terminal "t h"
@@ -9,6 +9,7 @@ if [ -n "$1" ]; then
 	do
 		case "$arg" in
 			a)
+				clear
 				sudo apt autoremove
 				break
 				;;
@@ -36,8 +37,8 @@ if [ -n "$1" ]; then
 								unrar $2
 								break
 								;;
-							*)
-								echo "please enter only .zip files"
+							*.tar.xz)
+								tar -xvf $2
 								break
 								;;
 						esac
@@ -89,7 +90,7 @@ if [ -n "$1" ]; then
 				echo ""
 				echo "	a   sudo apt autoremove -y"
 				echo "	c   gcc program_name.c && ./a.out"
-				echo "	e   unrar 'file_name' , this can extract .zip .rar"
+				echo "	e   unrar 'file_name' , this can extract .zip .rar .tar.xz"
 				echo "	i   sudo apt install 'program_name'"
 				echo "	m   neofetch && free -m"
 				echo "	r   sudo apt remove 'program_name'"

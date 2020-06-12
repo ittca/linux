@@ -4,6 +4,13 @@
 # this file can be modified, for example to remove, add or edit commands
 # to check options just enter on the terminal "t h"
 
+#   ______ __  ______  ______  ______       ______  ______  __      ______  _____   ______
+#  /\__  _/\ \/\  __ \/\  ___\/\  __ \     /\  ___\/\  __ \/\ \    /\  __ \/\  __-./\  __ \
+#  \/_/\ \\ \ \ \  __ \ \ \__ \ \ \/\ \    \ \ \___\ \  __ \ \ \___\ \  __ \ \ \/\ \ \ \/\ \
+#     \ \_\\ \_\ \_\ \_\ \_____\ \_____\    \ \_____\ \_\ \_\ \_____\ \_\ \_\ \____-\ \_____\
+#      \/_/ \/_/\/_/\/_/\/_____/\/_____/     \/_____/\/_/\/_/\/_____/\/_/\/_/\/____/ \/_____/
+
+
 if [ -n "$1" ]; then
 	for arg
 	do
@@ -15,10 +22,21 @@ if [ -n "$1" ]; then
 				;;
 			c)
 				if [ -n "$2" ]; then
-					rm a.out
 					clear
-					gcc $2
-					./a.out
+					gcc -o $2 $2.c
+					./$2
+					rm $2
+					break
+				else
+					echo "please enter the file name"
+				fi
+				;;
+			cp)
+				if [ -n "$2" ]; then
+					clear
+					g++ -o $2 $2.cpp
+					./$2
+					rm $2
 					break
 				else
 					echo "please enter the file name"
@@ -78,6 +96,22 @@ if [ -n "$1" ]; then
 					echo "please enter a program to search"
 				fi
 				;;
+			t)
+				## ascii art  , available in http://patorjk.com/software/taag/#p=display&f=Chiseled&t=Type%20Something%20
+				clear
+				echo ""
+				echo ""
+				echo "    ███      ▄█     ▄████████    ▄██████▄   ▄██████▄  ";
+				echo "▀█████████▄ ███    ███    ███   ███    ███ ███    ███ ";
+				echo "   ▀███▀▀██ ███▌   ███    ███   ███    █▀  ███    ███ ";
+				echo "    ███   ▀ ███▌   ███    ███  ▄███        ███    ███ ";
+				echo "    ███     ███▌ ▀███████████ ▀▀███ ████▄  ███    ███ ";
+				echo "    ███     ███    ███    ███   ███    ███ ███    ███ ";
+				echo "    ███     ███    ███    ███   ███    ███ ███    ███ ";
+				echo "   ▄████▀   █▀     ███    █▀    ████████▀   ▀██████▀  ";
+				echo "                                                      ";
+				echo ""
+				;;
 			u)
 				clear
 				sudo apt update
@@ -86,10 +120,23 @@ if [ -n "$1" ]; then
 				;;
 			*)
 				echo ""
+				echo "                  ___"
+				echo "                ,--.'|"
+				echo "                |  | :,'"
+				echo "                :  : ' |"
+				echo "              .;__,'  /"
+				echo "              |  |   |"
+				echo "              :__,'| :"
+				echo "                '  : |__"
+				echo "                |  | '.'|"
+				echo "                ;  :    ;"
+				echo "                |  '   /"
+				echo "                 ---'-'"
 				echo "options:"
 				echo ""
 				echo "	a   sudo apt autoremove -y"
-				echo "	c   gcc program_name.c && ./a.out"
+				echo "	c   gcc program_name.c && ./program_name && rm program_name"
+				echo "	cp  g++ program_name.cpp && ./program_name && rm program_name"
 				echo "	e   unrar 'file_name' , this can extract .zip .rar .tar.xz"
 				echo "	i   sudo apt install 'program_name'"
 				echo "	m   neofetch && free -m"

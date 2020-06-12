@@ -20,6 +20,17 @@ if [ -n "$1" ]; then
 				sudo apt autoremove
 				break
 				;;
+			b)
+				if [ -n "$2" ]; then
+					lsblk
+					echo "Next just enter the caracters after /dev/sd "
+					read option
+					sudo dd bs=4M if=$2 of=/dev/sd$option status="progress" && sync
+					break
+				else
+					echo "please enter the file name"
+				fi
+				;;
 			c)
 				if [ -n "$2" ]; then
 					clear
@@ -64,6 +75,22 @@ if [ -n "$1" ]; then
 					break
 				else
 					echo "please enter a file to extract"
+				fi
+				;;
+			f)
+				if [ -n "$2" ]; then
+					lsblk
+					echo ""
+					echo " Attention this will format the partition"
+					echo ""
+					echo "please choose the partition letter:"
+					read format
+					sudo umount /dev/sd$format
+					printf "o\nn\np\n1\n\n\nw\n" | sudo fdisk /dev/sd$format
+					sudo mkfs.$2 /dev/sd"${format}"1
+					break
+				else
+					echo "please enter a extension type"
 				fi
 				;;
 			i)
@@ -157,11 +184,13 @@ if [ -n "$1" ]; then
 				echo "options:"
 				echo ""
 				echo "	a   sudo apt autoremove -y"
-				echo "	c   gcc program_name.c && ./program_name && rm program_name"
-				echo "	cp  g++ program_name.cpp && ./program_name && rm program_name"
-				echo "	e   unrar 'file_name' , this can extract .zip .rar .tar.xz"
-				echo "	g   git add * && git status && git commit -m 'comment' * && git push -u origin master"
-				echo "	gr  git rm 'file_name' && git status && git commit -m 'file_name deleted' * && git push -u origin master"
+				echo "	b   make a bootable usb drive, just enter t b file_name"
+				echo "	c   compile C programs, just enter t c name_of_file_without_extension"
+				echo "	cp  compile C++ programs, just enter t cp name_of_file_without_extension"
+				echo "	e   extract .rar .zip .tar.xz files, t e File_name "
+				echo "	f   format the usb, just enter t f extension_desire"
+				echo "	g   add all changes to github, t g comment"
+				echo "	gr  remove files from directory and github at the same time, t gr File_name"
 				echo "	i   sudo apt install 'program_name'"
 				echo "	m   neofetch && free -m"
 				echo "	r   sudo apt remove 'program_name'"

@@ -97,7 +97,7 @@ if [ -n "$1" ]; then
 				fi
 				;;
 			t)
-				## ascii art  , available in http://patorjk.com/software/taag/#p=display&f=Chiseled&t=Type%20Something%20
+				## ascii art  , available for example in http://patorjk.com/software/taag/#p=display&f=Chiseled&t=Type%20Something%20
 				clear
 				echo ""
 				echo ""

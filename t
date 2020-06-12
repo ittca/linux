@@ -179,6 +179,19 @@ if [ -n "$1" ]; then
 
 else
 	echo ""
+	echo "                  ___"
+	echo "                ,--.'|"
+	echo "                |  | :,'"
+	echo "                :  : ' |"
+	echo "              .;__,'  /"
+	echo "              |  |   |"
+	echo "              :__,'| :"
+	echo "                '  : |__"
+	echo "                |  | '.'|"
+	echo "                ;  :    ;"
+	echo "                |  '   /"
+	echo "                 ---'-'"
+	echo ""
 	echo "please enter valid option, h for help"
 	echo ""
 fi

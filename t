@@ -74,6 +74,13 @@ if [ -n "$1" ]; then
 					echo "please enter a program to install"
 				fi
 				;;
+			g)
+				git add *
+				git commit -u "$(date)" *
+				git status
+				git push -u origin master
+				break
+				;;
 			m)
 				clear
 				neofetch

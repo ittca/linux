@@ -195,6 +195,7 @@ if [ -n "$1" ]; then
 				echo "	m   neofetch && free -m"
 				echo "	r   sudo apt remove 'program_name'"
 				echo "	s   apt search 'program_name'"
+				echo "	t   the art place :)"
 				echo "	u   sudo apt update && sudo apt upgrade"
 				echo "	h   this help menu"
 				echo ""

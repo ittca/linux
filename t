@@ -75,10 +75,13 @@ if [ -n "$1" ]; then
 				fi
 				;;
 			g)
-				git add *
-				git commit -u "$(date)" *
-				git status
-				git push -u origin master
+				if [ -n "$2" ]; then
+					git add *
+					git commit -m "$2" *
+					git status
+					git push -u origin master
+				else
+					echo "Please enter a comment"
 				break
 				;;
 			m)
@@ -145,6 +148,7 @@ if [ -n "$1" ]; then
 				echo "	c   gcc program_name.c && ./program_name && rm program_name"
 				echo "	cp  g++ program_name.cpp && ./program_name && rm program_name"
 				echo "	e   unrar 'file_name' , this can extract .zip .rar .tar.xz"
+				echo "	g   git add * && git commit -m 'comment' * && git status && git push -u origin master"
 				echo "	i   sudo apt install 'program_name'"
 				echo "	m   neofetch && free -m"
 				echo "	r   sudo apt remove 'program_name'"

@@ -80,9 +80,10 @@ if [ -n "$1" ]; then
 					git commit -m "$2" *
 					git status
 					git push -u origin master
+					break
 				else
 					echo "Please enter a comment"
-				break
+				fi
 				;;
 			m)
 				clear

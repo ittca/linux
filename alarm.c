@@ -8,7 +8,7 @@
 //      \ \_\\ \_\ \_\ \_\ \_____\ \_____\    \ \_____\ \_\ \_\ \_____\ \_\ \_\ \____-\ \_____\
 //       \/_/ \/_/\/_/\/_/\/_____/\/_____/     \/_____/\/_/\/_/\/_____/\/_/\/_/\/____/ \/_____/
 
-#include <stdio.h>									// printf()
+#include <stdio.h>									// printf(), scanf()
 #include <time.h>									// time_t, time(), localtime()
 #include <stdlib.h>									// system()
 #include <unistd.h>									// sleep()

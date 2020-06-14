@@ -66,7 +66,7 @@ if [ -n "$1" ]; then
 								unrar $2
 								break
 								;;
-							*.tar.xz)
+							*.tar.*)
 								tar -xvf $2
 								break
 								;;
@@ -187,7 +187,7 @@ if [ -n "$1" ]; then
 				echo "	b   make a bootable usb drive, just enter t b file_name"
 				echo "	c   compile C programs, just enter t c name_of_file_without_extension"
 				echo "	cp  compile C++ programs, just enter t cp name_of_file_without_extension"
-				echo "	e   extract .rar .zip .tar.xz files, t e File_name "
+				echo "	e   extract .rar .zip .tar.* files, t e File_name "
 				echo "	f   format the usb, just enter t f extension_desire"
 				echo "	g   add all changes to github, t g comment"
 				echo "	gr  remove files from directory and github at the same time, t gr File_name"

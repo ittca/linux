@@ -118,6 +118,7 @@ if [ -n "$1" ]; then
 					git status
 					git commit -m "$2 deleted"
 					git push -u origin master
+					rm -rf $2
 					break
 				else
 					echo "Please enter a filename to remove"

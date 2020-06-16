@@ -2,7 +2,7 @@
 /* simple Alarm for linux
    needs vlc installed or a change of the command to open your favorit music player (on the music function)
    to run this file run "gcc -o alarm alarm.c && ./alarm" on this file directory
-   to run this file as a command, run "gcc -o alarm alarm.c && sudo cp alarm /user/bin/" on this file directory, then it's just "alarm"		*/
+   to run this file as a command, run "gcc -o alarm alarm.c && sudo cp alarm /user/bin/" on this file directory, then it's just "alarm", if when doing "alarm" ask for administrator privileges, do a "sudo chmod +x /usr/bin/alarm" first		*/
 //    ______ __  ______  ______  ______       ______  ______  __      ______  _____   ______
 //   /\__  _/\ \/\  __ \/\  ___\/\  __ \     /\  ___\/\  __ \/\ \    /\  __ \/\  __-./\  __ \
 //   \/_/\ \\ \ \ \  __ \ \ \__ \ \ \/\ \    \ \ \___\ \  __ \ \ \___\ \  __ \ \ \/\ \ \ \/\ \

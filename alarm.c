@@ -1,6 +1,6 @@
 
-/* simple Alarm for linux, after the alarm goes off, cvlc will start, to stop it run "killall vlc"
-   needs vlc installed or a change of the command to open your favorit music player (one of the last lines of code)
+/* simple Alarm for linux
+   needs vlc installed or a change of the command to open your favorit music player (on the music function)
    to run this file run "gcc -o alarm alarm.c && ./alarm" on this file directory
    to run this file as a command, run "gcc -o alarm alarm.c && sudo cp alarm /user/bin/" on this file directory, then it's just "alarm"		*/
 //    ______ __  ______  ______  ______       ______  ______  __      ______  _____   ______

@@ -1,8 +1,8 @@
 #!/bin/bash
-# this bash file if with executable permissions is placed on /usr/bin/ will creat a new terminal command "t"
+# this bash file if with executable permissions is placed on /usr/bin/ will creat a new terminal command t
 # t has some options that run my personal most Debian based executed commands with just 2 or 3 caracters
 # this file can be modified, for example to remove, add or edit commands
-# to check options just enter on the terminal "t h"
+# to check options just enter on the terminal t h
 
 #   ______ __  ______  ______  ______       ______  ______  __      ______  _____   ______
 #  /\__  _/\ \/\  __ \/\  ___\/\  __ \     /\  ___\/\  __ \/\ \    /\  __ \/\  __-./\  __ \

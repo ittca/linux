@@ -1,7 +1,7 @@
 #!/bin/bash
-# This file options are for Debian base 
+# This file options are for Arch base, please rename the file from t_arch to t
 # this bash file if with executable permissions is placed on /usr/bin/ will creat a new terminal command 't'
-# t has some options that run my personal most Debian based executed commands with just 2 or 3 caracters
+# t has some options that run my personal most Arch based executed commands with just 2 or 3 caracters
 # this file can be modified, for example to remove, add or edit commands
 # to check options just enter on the terminal 't h'
 
@@ -18,7 +18,10 @@ if [ -n "$1" ]; then
 		case "$arg" in
 			a)
 				clear
-				sudo apt autoremove
+        sudo pacman -Sc -y
+        sudo pacman -Scc -y
+				sudo pacman -Qdtq -y
+        sudo pacman -Rsn -y
 				break
 				;;
 			b)
@@ -96,7 +99,7 @@ if [ -n "$1" ]; then
 				;;
 			i)
 				if [ -n "$2" ]; then
-					sudo apt install $2
+					sudo pacman -S $2
 					break
 				else
 					echo "please enter a program to install"
@@ -128,12 +131,12 @@ if [ -n "$1" ]; then
 			m)
 				clear
 				neofetch
-				free -m
+				free -t
 				break
 				;;
 			r)
 				if [ -n "$2" ]; then
-					sudo apt remove $2
+					sudo pacman -Rcc $2
 					break
 				else
 					echo "please enter a program to remove"
@@ -141,7 +144,7 @@ if [ -n "$1" ]; then
 				;;
 			s)
 				if [ -n "$2" ]; then
-					apt search $2
+					sudo pacman -Ss $2
 					break
 				else
 					echo "please enter a program to search"
@@ -165,8 +168,8 @@ if [ -n "$1" ]; then
 				;;
 			u)
 				clear
-				sudo apt update
-				sudo apt upgrade
+				sudo pacman -Syu
+        sudo pacman -Syy
 				break
 				;;
 			*)
@@ -185,7 +188,7 @@ if [ -n "$1" ]; then
 				echo "                 ---'-'"
 				echo "options:"
 				echo ""
-				echo "	a   sudo apt autoremove -y"
+				echo "	a   sudo pacman -Sc -y && sudo pacman -Scc -y && sudo pacman -Qdtq -y && sudo pacman -Rsn -y"
 				echo "	b   make a bootable usb drive, just enter t b file_name"
 				echo "	c   compile C programs, just enter t c name_of_file_without_extension"
 				echo "	cp  compile C++ programs, just enter t cp name_of_file_without_extension"
@@ -193,12 +196,12 @@ if [ -n "$1" ]; then
 				echo "	f   format the usb, just enter t f extension_desire"
 				echo "	g   add all changes to github, t g comment"
 				echo "	gr  remove files from directory and github at the same time, t gr File_name"
-				echo "	i   sudo apt install 'program_name'"
-				echo "	m   neofetch && free -m"
-				echo "	r   sudo apt remove 'program_name'"
-				echo "	s   apt search 'program_name'"
+				echo "	i   sudo pacman -S 'program_name'"
+				echo "	m   neofetch && free"
+				echo "	r   sudo pacman -Rcc 'program_name'"
+				echo "	s   sudo pacman -Ss 'program_name'"
 				echo "	t   the art place :)"
-				echo "	u   sudo apt update && sudo apt upgrade"
+				echo "	u   sudo pacman -Syu -y && sudo pacman -Syy -y "
 				echo "	h   this help menu"
 				echo ""
 				echo "example:"

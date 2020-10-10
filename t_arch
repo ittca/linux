@@ -18,10 +18,10 @@ if [ -n "$1" ]; then
 		case "$arg" in
 			a)
 				clear
-        sudo pacman -Sc -y
-        sudo pacman -Scc -y
-				sudo pacman -Qdtq -y
-        sudo pacman -Rsn -y
+        sudo pacman -Sc
+        sudo pacman -Scc
+				sudo pacman -Qdtq
+        sudo pacman -Rsn
 				break
 				;;
 			b)

@@ -1,5 +1,5 @@
 #!/bin/bash
-# This file options are for Debian base 
+# This file options are for Debian base
 # this bash file if with executable permissions is placed on /usr/bin/ will creat a new terminal command 't'
 # t has some options that run my personal most Debian based executed commands with just 2 or 3 caracters
 # this file can be modified, for example to remove, add or edit commands
@@ -102,6 +102,7 @@ if [ -n "$1" ]; then
 					echo "please enter a program to install"
 				fi
 				;;
+
 			g)
 				if [ -n "$2" ]; then
 					git add *
@@ -125,6 +126,16 @@ if [ -n "$1" ]; then
 					echo "Please enter a filename to remove"
 				fi
 				;;
+			l)
+				sudo systemctl start apache2
+				sudo systemctl start mariadb
+				echo apache2 e mariadb ativados
+				;;
+			ld)
+				sudo systemctl stop apache2
+				sudo systemctl stop mariadb
+				echo apache2 e mariadb foram desativados
+				;;
 			m)
 				clear
 				neofetch
@@ -133,7 +144,7 @@ if [ -n "$1" ]; then
 				;;
 			r)
 				if [ -n "$2" ]; then
-					sudo apt remove $2
+					sudo apt purge $2
 					break
 				else
 					echo "please enter a program to remove"
@@ -194,8 +205,10 @@ if [ -n "$1" ]; then
 				echo "	g   add all changes to github, t g comment"
 				echo "	gr  remove files from directory and github at the same time, t gr File_name"
 				echo "	i   sudo apt install 'program_name'"
+				echo "	l   sudo systemctl start apache2 && sudo systemctl start mariadb"
+				echo "	ld   sudo systemctl stop apache2 && sudo systemctl stop mariadb"
 				echo "	m   neofetch && free -m"
-				echo "	r   sudo apt remove 'program_name'"
+				echo "	r   sudo apt purge 'program_name'"
 				echo "	s   apt search 'program_name'"
 				echo "	t   the art place :)"
 				echo "	u   sudo apt update && sudo apt upgrade"

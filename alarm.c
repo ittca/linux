@@ -1,4 +1,3 @@
-
 /* simple Alarm for linux
    needs vlc installed or a change of the command to open your favorit music player (on the music function)
    to run this file run "gcc -o alarm alarm.c && ./alarm" on this file directory
@@ -15,7 +14,10 @@
 #include <unistd.h>
 #include <string.h>
 
-int h, m, s, d=3;
+int h, m, s, inp1, inp2, msc = 1;
+int v = 4;
+int t = 45;
+int i = 15;
 
 void timer(){
 	time_t ct;
@@ -27,7 +29,7 @@ void timer(){
 }
 
 void music(){
-	switch(d)
+	switch(msc)
 	{
 	case 1:
 		system("cvlc https://soundcloud.com/nocopyrightsounds/unknown-brain-matafaka-feat-marvin-divine &");
@@ -43,53 +45,153 @@ void music(){
 		break;
 	}
 }
+int str_size(char *str){
+  int n;
+  for (n = 0; str[n] != '\0'; n++);
+  return n;
+}
+int is_int(char *str){
+  int a = str_size(str);
+  for (int n = 0; str[n] < a; n++){
+    if (str[n] < 48 || str[n] > 57){
+      if(str[n] == 45 && n == 0){
+      } else { return 0;}
+    }
+  }
+  return 1;
+}
+int input_int(){
+  int b = 1;
+  char *msg_err = malloc(256);
+  strcat(msg_err,"");
+  while (b){
+    char str[100];
+    char str2[100];
+    system("clear");							// clear screen
+    printf("####################	Alarm	####################\n");	// title
+    if (inp1 < 0 || inp1 > 23) printf("\t\thours must be between 00 and 23");	// warning message about hours input
+    if (inp2 < 0 || inp2 > 59) printf("\t\tminutes must be between 00 and 59");	// warning message about minutes input
+    if (msg_err != "")printf("%s\n", msg_err);
+    inp1 = 0;
+    inp2 = 0;
+    printf("\nChoose the Alarm time: ");					// asking for user input
+    scanf(" %s %s", str,str2);
+    if (is_int(str) && is_int(str2)){
+      inp1 = atoi(str);
+      inp2 = atoi(str2);
+      if (inp1 < 0 || inp1 > 23) inp1 = atoi(str);	// warning message about hours input
+      if (inp2 < 0 || inp2 > 59) inp2 = atoi(str2);	// warning message about minutes input
+      b = 0;
+    } else {
+      strcat(msg_err,"\t\tPlease input only numbers like  07 15");
+    }
+  }
+  return 0;
+}
 
 int main(int argc,char *argv[]){
-	int a, b, t;
-	if (argc == 1){
-		a=0;
-		b=0;										// integers inicialization
-		do {
-			system("clear");							// clear screen
-			printf("####################	Alarm	####################\n\n");	// title
-			if (a < 0 || a > 23) printf("hours must be between 00 and 23\n\n");	// warning message about hours input
-			if (b < 0 || b > 59) printf("minutes must be between 00 and 59\n\n");	// warning message about minutes input
-			printf("Choose the Alarm time: ");					// asking for user input
-			scanf("%i %i", &a, &b);							// getting user input
-		} while (a < 0 || a > 23 || b < 0 || b > 59);					// if correct time was inserted the code go on									// to get time to open cvlc before the next commands run throw
-	} else {
-		a = atoi(argv[1]);
-		b = atoi(argv[2]);
-	}
-	timer();
-	while ( a!=h || b != m){
-		if (a == h && b > m) t = (b-m)*60 - s+2;
-		else t = (60-m)*60 - s+2;
-		sleep(t);
-		timer();
-	}
-	const char *c;
-	while (1 == 1){
-		music();
-		sleep(4);
-		system("clear");
-		printf("\n\n\n\n\tGood Morning!\n\n\tPress r to turn off Alarm, Any Key to more 10 minutes\n\n\t\t\t\t");
-		scanf("%s", c);
-		if (strcmp(c, "r")== 0){
-			system("killall vlc");
-			int z = 5;
-			while (z > 0){
-				system("clear");
-				printf("\n\n\n\n\t Have a great day!\n");
-				sleep(1);
-				z--;
-			}
-			return 0;
+  int t;
+	int a = 1;
+	int b = 0;
+	while (a != 0){
+		if (argc == 1){
+			system("clear");
+			printf("   ############ My alarm ############\n");
+			printf("\n\n\t1. Pomodoro\n");
+			printf("\t2. Alarm\n");
+			printf("\t3. definitions\n");
+			printf("\t4. Exit\n\n\t»» ");
+			scanf(" %d",&b);
+		} else {
+			inp1 = atoi(argv[1]);
+			inp2 = atoi(argv[2]);
+			b = 3;
 		}
-		system("clear");
-		printf("\n\n\n\n\tMake your own time, your own life, your own staff,\n\t\t be glad and sad, poor and rich, have a great day love!\n");
-		system("killall vlc");
-		sleep(10);
+		if(b == 1){
+			int vv = v;
+			while (vv != 0){
+				system("cvlc http://www.shinsen-radio.org:8000/shinsen-radio.64.ogg &");
+				sleep(1);
+				system("clear");
+				printf("\n\n##################################################################################\n");
+				printf("\t\t\t\t\tPomodoro");
+				printf("\n##################################################################################\n");
+				sleep(t*60);
+				system("killall vlc");
+				system("cvlc /home/tiago/Música/Metal_productivity.mp3 &");
+				sleep(1);
+				if (vv != 1){
+					system("clear");
+					printf("\n\n##################################################################################\n");
+					printf("\t\t\ttime for a pause, Break!");
+					printf("\n##################################################################################\n");
+					sleep(22);
+					system("killall vlc");
+					sleep(i*60);
+				} else {
+					system("clear");
+					printf("\n\n###########################################################################################\n");
+					printf("  Pomodoro's time had finnish!, go breed fresh air, have fun, repite whenever you want!");
+					printf("\n###########################################################################################\n");
+					sleep(22);
+					system("killall vlc");
+				}
+				vv--;
+			}
+		}
+		else if (b == 2){
+			system("clear");
+			printf("\n\n##################################################################################\n");
+			printf("\t\t\ttime for a pause, Break!");
+			printf("\n##################################################################################\n");
+			printf("\nChoose the number of times for the pomodoro time\n»» ");
+			scanf(" %d",&v);
+			system("clear");
+			printf("\n\n##################################################################################\n");
+			printf("\t\t\t\t\tPomodoro");
+			printf("\n##################################################################################\n");
+			printf("\nChoose the pomodoro's time in minutes\n»» ");
+			scanf(" %d",&t);
+			system("clear");
+			printf("\n\n##################################################################################\n");
+			printf("\t\t\t\t\tPomodoro");
+			printf("\n##################################################################################\n");
+			printf("\nChoose the break time in minutes\n»» ");
+			scanf(" %d",&i);
+			system("clear");
+			printf("\n\n##################################################################################\n");
+			printf("\t\t\tYour definitions had been saved with success!");
+			printf("\n##################################################################################\n");
+		}
+		else if(b == 3){
+			do {
+				input_int();
+			} while (inp1 < 0 || inp1 > 23 || inp2 < 0 || inp2 > 59);					// if correct time was inserted the code go on
+			timer();
+			while ( inp1!=h || inp2 != m){
+				if (inp1 == h && inp2 > m) t = (inp2-m)*60 - s+2;
+				else t = (60-m)*60 - s+2;
+		    system("clear");
+		    printf("####################	Alarm	set to     %d : %d   ####################\n\n",inp1,inp2);	// title
+				sleep(t);
+				timer();
+			}
+			const char *c;
+			int r = 1;
+			while (r){
+				music();
+				sleep(4);
+				system("clear");
+				printf("\n\n\n\n\tGood Morning!\n\n\tPress r to turn off Alarm, Any Key to more 10 minutes\n\n\t\t\t\t");
+				system("killall vlc");
+				sleep(5);
+				r = 0;
+
+			}
+		}
+		else if(b == 4){a = 0;}
 	}
-	return 1;
+	printf("\n\tSee you next time!.\n");
+  sleep(3);
+	return 0;
 }

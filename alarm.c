@@ -1,7 +1,7 @@
 /* simple Alarm for linux
    needs vlc installed or a change of the command to open your favorit music player (on the music function)
-   to run this file run "gcc -o alarm alarm.c && ./alarm" on this file directory
-   to run this file as a command, run "gcc -o alarm alarm.c && sudo chmod +x alarm && sudo cp alarm /user/bin/" on this file directory		*/
+   to run this file run "gcc -o timer timer.c && ./alarm" on this file directory
+   to run this file as a command, run "gcc -o timer timer.c && sudo chmod +x timer && sudo cp timer /usr/bin/" on this file directory		*/
 //    ______ __  ______  ______  ______       ______  ______  __      ______  _____   ______
 //   /\__  _/\ \/\  __ \/\  ___\/\  __ \     /\  ___\/\  __ \/\ \    /\  __ \/\  __-./\  __ \
 //   \/_/\ \\ \ \ \  __ \ \ \__ \ \ \/\ \    \ \ \___\ \  __ \ \ \___\ \  __ \ \ \/\ \ \ \/\ \

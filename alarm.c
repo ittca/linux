@@ -1,7 +1,7 @@
 /* simple Alarm for linux
    needs vlc installed or a change of the command to open your favorit music player (on the music function)
    to run this file run "gcc -o alarm alarm.c && ./alarm" on this file directory
-   to run this file as a command, run "gcc -o alarm alarm.c && sudo cp alarm /user/bin/" on this file directory, then it's just "alarm", if when doing "alarm" ask for administrator privileges, do a "sudo chmod +x /usr/bin/alarm" first		*/
+   to run this file as a command, run "gcc -o alarm alarm.c && sudo chmod +x alarm && sudo cp alarm /user/bin/" on this file directory		*/
 //    ______ __  ______  ______  ______       ______  ______  __      ______  _____   ______
 //   /\__  _/\ \/\  __ \/\  ___\/\  __ \     /\  ___\/\  __ \/\ \    /\  __ \/\  __-./\  __ \
 //   \/_/\ \\ \ \ \  __ \ \ \__ \ \ \/\ \    \ \ \___\ \  __ \ \ \___\ \  __ \ \ \/\ \ \ \/\ \
@@ -12,10 +12,10 @@
 #include <stdlib.h>									// system()
 #include <unistd.h>               // sleep()
 
-int h, m, s, inp1, inp2, msc = 1;
-int v = 4;
-int t = 45;
-int i = 15;
+int horas, minutos, segundos, inp1, inp2, musica = 2;
+int vezes = 4;
+int tempo = 45;
+int intervalo = 15;
 char os_return[100];
 
 void system_hour();
@@ -25,53 +25,50 @@ int str_size(char *str);
 int is_int(char *str);
 int sti(char *str);
 void str_replace(char *str, char *str2);
-void input_int();
+int isCharInt(char *str);
+int input_int(char *msg);
+void input_int2();
 
 
 int main(int argc,char *argv[]){
-  int t;
 	int a = 1;
-	int b = 0;
-	while (a != 0){
+  int b = 0;
+  char *menu = "   ############ My timer ############\n\n\n\t1. Pomodoro\n\t2. Alarm\n\t3. Settings\n\t4. Exit\n\n\t»» ";
+  char *pomodoro = "\n\n##################################################################################\n\t\t\t\tPomodoro\n##################################################################################\n";
+  char *pause = "\n\n##################################################################################\n\t\t\ttime for a pause, Break!\n##################################################################################\n";
+  char *finnish = "\n\n###########################################################################################\n  Pomodoro's time had finnish!, go breed fresh air, have fun, repite whenever you want!\n###########################################################################################\n";
+  char *pomoSettings = "\n\n##################################################################################\n\t\t\t\t\tPomodoro settings\n##################################################################################\n";
+  while (a != 0){
 		if (argc == 1){
-			system("clear");
-			printf("   ############ My timer ############\n");
-			printf("\n\n\t1. Pomodoro\n");
-			printf("\t2. Alarm\n");
-			printf("\t3. Settings\n");
-			printf("\t4. Exit\n\n\t»» ");
-			scanf(" %d",&b);
+      do{
+        system("clear");
+        b = input_int(menu);
+      }while (b < 1 || b > 4);
 		} else {
 			inp1 = sti(argv[1]);
 			inp2 = sti(argv[2]);
 			b = 3;
 		}
 		if(b == 1){
-			int vv = v;
+			int vv = vezes;
 			while (vv != 0){
 				system("cvlc http://www.shinsen-radio.org:8000/shinsen-radio.64.ogg &");
 				sleep(1);
 				system("clear");
-				printf("\n\n##################################################################################\n");
-				printf("\t\t\t\t\tPomodoro");
-				printf("\n##################################################################################\n");
-				sleep(t*60);
+				printf(pomodoro);
+				sleep(tempo*60);
 				system("killall vlc");
 				system("cvlc /home/tiago/Música/Metal_productivity.mp3 &");
 				sleep(1);
 				if (vv != 1){
 					system("clear");
-					printf("\n\n##################################################################################\n");
-					printf("\t\t\ttime for a pause, Break!");
-					printf("\n##################################################################################\n");
+					printf(pause);
 					sleep(22);
 					system("killall vlc");
-					sleep(i*60);
+					sleep(intervalo*60);
 				} else {
 					system("clear");
-					printf("\n\n###########################################################################################\n");
-					printf("  Pomodoro's time had finnish!, go breed fresh air, have fun, repite whenever you want!");
-					printf("\n###########################################################################################\n");
+					printf(finnish);
 					sleep(22);
 					system("killall vlc");
 				}
@@ -79,24 +76,24 @@ int main(int argc,char *argv[]){
 			}
 		}
 		else if (b == 2){
-			do {
-				input_int();
+      do {
+				input_int2();
 			} while (inp1 < 0 || inp1 > 23 || inp2 < 0 || inp2 > 59);					// if correct time was inserted the code go on
-			system_hour();
-			int t = 1;
+			int t = 1, r, sleeptime;
+      system_hour();
 			while(t){
-				while ( inp1!=h || inp2 != m){
-					if (inp1 == h && inp2 > m) t = (inp2-m)*60 - s+2;
-					else t = (60-m)*60 - s+2;
+				while ( inp1!=horas || inp2 != minutos){
+					if (inp1 == horas && inp2 > minutos) sleeptime = (inp2-minutos)*60 - segundos+2;
+					else sleeptime = (60-minutos)*60 - segundos+2;
 			    system("clear");
 			    printf("####################	Alarm	set to     %d : %d   ####################\n\n",inp1,inp2);	// title
-					sleep(t);
-					system_hour();
+					sleep(sleeptime);
+          system_hour();
 				}
 				const char *c;
-				int r = 1;
+				r = 1;
 				while (r){
-					music();
+          music();
 					sleep(4);
 					char str3[100];
 					system("clear");
@@ -105,7 +102,8 @@ int main(int argc,char *argv[]){
 					system("killall vlc");
 					if (str3[0] == 'r'){r = 0; t = 0;}
 					else{
-						inp2 = inp2 + 10;
+            system_hour();
+						inp2 = minutos + 10;
 						if(inp2 > 59){
 							inp2 = inp2 - 60;
 							inp1++;
@@ -117,27 +115,19 @@ int main(int argc,char *argv[]){
 		}
 		else if(b == 3){
 			system("clear");
-			printf("\n\n##################################################################################\n");
-			printf("\t\t\t\t\tPomodoro settings");
-			printf("\n##################################################################################\n");
+			printf(pomoSettings);
 			printf("\nChoose the number of times for the pomodoro time\n»» ");
-			scanf(" %d",&v);
+			scanf(" %d",&vezes);
 			system("clear");
-			printf("\n\n##################################################################################\n");
-			printf("\t\t\t\t\tPomodoro settings");
-			printf("\n##################################################################################\n");
+			printf(pomoSettings);
 			printf("\nChoose the pomodoro's time in minutes\n»» ");
-			scanf(" %d",&t);
+			scanf(" %d",&tempo);
 			system("clear");
-			printf("\n\n##################################################################################\n");
-			printf("\t\t\t\t\tPomodoro settings");
-			printf("\n##################################################################################\n");
+			printf(pomoSettings);
 			printf("\nChoose the break time in minutes\n»» ");
-			scanf(" %d",&i);
+			scanf(" %d",&intervalo);
 			system("clear");
-			printf("\n\n##################################################################################\n");
-			printf("\t\t\tYour definitions had been saved with success!");
-			printf("\n##################################################################################\n");
+			printf("\n\n##################################################################################\n\t\t\tYour definitions had been saved with success!\n##################################################################################\n");
 			sleep(3);
 		}
 		else if(b == 4){a = 0;}
@@ -149,7 +139,7 @@ int main(int argc,char *argv[]){
 
 
 void music(){
-	switch(msc)
+	switch(musica)
 	{
 	case 1:
 		system("cvlc https://soundcloud.com/nocopyrightsounds/unknown-brain-matafaka-feat-marvin-divine &");
@@ -180,6 +170,18 @@ int is_int(char *str){
   }
   return 1;
 }
+
+int isCharInt(char *str){
+  int a = str_size(str);
+  for (int n = 0; str[n]; n++){
+    if (str[n] < 48 || str[n] > 57){      // numbers  0 1 2 3 4 5 6 7 8 9
+      if(str[n] == 45 && n == 0){         // for - (minus only on the first position, negative numbers)
+      } else { return 0;}
+    }
+  }
+  return 1;
+}
+
 int sti(char *str){
   int a = 0, b = 1, i = 0;
   if(str[0] == '-'){
@@ -197,8 +199,22 @@ void str_replace(char *str, char *str2){
   for(n = 0; n < c; n++)str[n]=str2[n];
   str[n]='\0';
 }
-
-void input_int(){
+int input_int(char *msg){
+  int a;
+  int b = 1;
+  while (b){
+    char str[100];
+    system("clear");
+    printf("%s",msg);
+    scanf("%s", str);
+    if (isCharInt(str)){
+      a = sti(str);
+      b = 0;
+    }
+  }
+  return a;
+}
+void input_int2(){
   int b = 1;
   char *msg_err = malloc(256);
   str_replace(msg_err,"");
@@ -216,9 +232,9 @@ void input_int(){
     scanf(" %s %s", str,str2);
     if (is_int(str) && is_int(str2)){
       inp1 = sti(str);
-      inp2 = atoi(str2);
-      if (inp1 < 0 || inp1 > 23) inp1 = atoi(str);	// warning message about hours input
-      if (inp2 < 0 || inp2 > 59) inp2 = atoi(str2);	// warning message about minutes input
+      inp2 = sti(str2);
+      if (inp1 < 0 || inp1 > 23) inp1 = sti(str);	  // warning message about hours input
+      if (inp2 < 0 || inp2 > 59) inp2 = sti(str2);	// warning message about minutes input
       b = 0;
     } else {
       str_replace(msg_err,"\t\tPlease input only numbers like  07 15");
@@ -256,7 +272,7 @@ void system_hour(){  // needs 4 global variables char os_return[100];
     }
     if (os_return[i] == ' ')n++;
   }
-  h = sti(hh);
-  m = sti(mm);
-  s = sti(ss);
+  horas = sti(hh);
+  minutos = sti(mm);
+  segundos = sti(ss);
 }

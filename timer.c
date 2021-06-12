@@ -1,7 +1,7 @@
 /* simple Alarm for linux
    needs vlc installed or a change of the command to open your favorit music player (on the music function)
-   to run this file run "gcc -o alarm alarm.c && ./alarm" on this file directory
-   to run this file as a command, run "gcc -o alarm alarm.c && sudo chmod +x alarm && sudo cp alarm /user/bin/" on this file directory		*/
+   to run this file run "gcc -o timer timer.c && ./alarm" on this file directory
+   to run this file as a command, run "gcc -o timer timer.c && sudo chmod +x timer && sudo cp timer /usr/bin/ && rm timer" on this file directory		*/
 //    ______ __  ______  ______  ______       ______  ______  __      ______  _____   ______
 //   /\__  _/\ \/\  __ \/\  ___\/\  __ \     /\  ___\/\  __ \/\ \    /\  __ \/\  __-./\  __ \
 //   \/_/\ \\ \ \ \  __ \ \ \__ \ \ \/\ \    \ \ \___\ \  __ \ \ \___\ \  __ \ \ \/\ \ \ \/\ \
@@ -12,7 +12,7 @@
 #include <stdlib.h>									// system()
 #include <unistd.h>               // sleep()
 
-int horas, minutos, segundos, inp1, inp2, musica = 2;
+int horas, minutos, segundos, inp1, inp2, musica = 4;
 int vezes = 4;
 int tempo = 45;
 int intervalo = 15;
@@ -33,11 +33,15 @@ void input_int2();
 int main(int argc,char *argv[]){
 	int a = 1;
   int b = 0;
+	int settings;
+	char notmusic[10] = "y\0\0\0\0\0\0\0\0\0";
   char *menu = "   ############ My timer ############\n\n\n\t1. Pomodoro\n\t2. Alarm\n\t3. Settings\n\t4. Exit\n\n\t»» ";
   char *pomodoro = "\n\n##################################################################################\n\t\t\t\tPomodoro\n##################################################################################\n";
   char *pause = "\n\n##################################################################################\n\t\t\ttime for a pause, Break!\n##################################################################################\n";
   char *finnish = "\n\n###########################################################################################\n  Pomodoro's time had finnish!, go breed fresh air, have fun, repite whenever you want!\n###########################################################################################\n";
-  char *pomoSettings = "\n\n##################################################################################\n\t\t\t\t\tPomodoro settings\n##################################################################################\n";
+  char *pomoSettings = "\n\n##################################################################################\n\t\t\t\tPomodoro settings\n##################################################################################\n";
+	char *sett = "   ############ My timer settings ############\n\n\n\t1. Pomodoro settings\n\t2. Alarm settings\n\t3. Exit\n\n\t»» ";
+	char *alarmsett = "   ############ choose a music for the ring ############\n\n\n\t1. unknown brain\n\t2. Alone Tonight - Nightcore\n\t3. Wrecking Ball Metal - Nightcore\n\t4. lately\n\t5. sleepwalking\n\n\t»» ";
   while (a != 0){
 		if (argc == 1){
       do{
@@ -52,24 +56,24 @@ int main(int argc,char *argv[]){
 		if(b == 1){
 			int vv = vezes;
 			while (vv != 0){
-				system("cvlc http://www.shinsen-radio.org:8000/shinsen-radio.64.ogg &");
+				if(notmusic[0]=='y')system("cvlc http://www.shinsen-radio.org:8000/shinsen-radio.64.ogg &");
 				sleep(1);
 				system("clear");
 				printf(pomodoro);
 				sleep(tempo*60);
 				system("killall vlc");
-				system("cvlc /home/tiago/Música/Metal_productivity.mp3 &");
-				sleep(1);
+				system("cvlc https://soundcloud.com/vsxd0yhdh5ts/nice_wake_up_alarm-ringtone &");
+				sleep(3);
 				if (vv != 1){
 					system("clear");
 					printf(pause);
-					sleep(22);
+					sleep(30);
 					system("killall vlc");
 					sleep(intervalo*60);
 				} else {
 					system("clear");
 					printf(finnish);
-					sleep(22);
+					sleep(30);
 					system("killall vlc");
 				}
 				vv--;
@@ -114,21 +118,41 @@ int main(int argc,char *argv[]){
 			}
 		}
 		else if(b == 3){
-			system("clear");
-			printf(pomoSettings);
-			printf("\nChoose the number of times for the pomodoro time\n»» ");
-			scanf(" %d",&vezes);
-			system("clear");
-			printf(pomoSettings);
-			printf("\nChoose the pomodoro's time in minutes\n»» ");
-			scanf(" %d",&tempo);
-			system("clear");
-			printf(pomoSettings);
-			printf("\nChoose the break time in minutes\n»» ");
-			scanf(" %d",&intervalo);
-			system("clear");
-			printf("\n\n##################################################################################\n\t\t\tYour definitions had been saved with success!\n##################################################################################\n");
-			sleep(3);
+			do{
+				settings = input_int(sett);
+			} while (settings < 1 || settings > 3);
+			if (settings == 1){
+				system("clear");
+				printf(pomoSettings);
+				printf("\nChoose the number of times for the pomodoro time\n»» ");
+				scanf(" %d",&vezes);
+				system("clear");
+				printf(pomoSettings);
+				printf("\nChoose the pomodoro's time in minutes\n»» ");
+				scanf(" %d",&tempo);
+				system("clear");
+				printf(pomoSettings);
+				printf("\nChoose the break time in minutes\n»» ");
+				scanf(" %d",&intervalo);
+				do{
+					system("clear");
+					printf(pomoSettings);
+					printf("\nDo you want to have music while in pomodoro time('y/n')\n»» ");
+					scanf("%s",notmusic);
+				} while (notmusic[0] != 'y' && notmusic[0] != 'n');
+				system("clear");
+				printf("\n\n##################################################################################\n\t\tYour definitions had been saved with success!\n##################################################################################\n");
+				sleep(3);
+			}
+			else if(settings == 2){
+				system("clear");
+				do{
+					musica = input_int(alarmsett);
+				}while (musica < 1 || musica > 5);
+				system("clear");
+				printf("\n\n##################################################################################\n\t\t\tYour definitions had been saved with success!\n##################################################################################\n");
+				sleep(3);
+			}
 		}
 		else if(b == 4){a = 0;}
 	}
@@ -151,7 +175,10 @@ void music(){
 		system("cvlc https://soundcloud.com/nightcorenocopyright-434283379/nightcore-wrecking-ball-metal &");
 		break;
 	case 4:
-		system("cvlc https://soundcloud.com/sarahjcmusic/i-dont-know-demo &");
+		system("cvlc https://soundcloud.com/sarahmusicjane/lately &");
+		break;
+	case 5:
+		system("cvlc https://soundcloud.com/sarahmusicjane/sleepwalking &");
 		break;
 	}
 }

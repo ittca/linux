@@ -56,8 +56,8 @@ int main(int argc,char *argv[]){
 		if(b == 1){
 			int vv = vezes;
 			while (vv != 0){
-				if(notmusic[0]=='y')system("cvlc http://www.shinsen-radio.org:8000/shinsen-radio.64.ogg &");
-				sleep(1);
+				if(notmusic[0]=='y')system("cvlc http://stream.laut.fm/radiorock &");
+				sleep(3);
 				system("clear");
 				printf(pomodoro);
 				sleep(tempo*60);
